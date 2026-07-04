@@ -36,7 +36,7 @@ def allowed_file(filename):
 
 # ── GET all employees ─────────────────────────────────────────────────────────
 @employee_bp.route("", methods=["GET"])
-@admin_required
+
 def get_employees():
     """
     Query parameters:
@@ -79,7 +79,7 @@ def get_employees():
 
 # ── POST create employee ──────────────────────────────────────────────────────
 @employee_bp.route("", methods=["POST"])
-@admin_required
+
 def create_employee():
     data = request.get_json()
 
@@ -113,7 +113,6 @@ def create_employee():
 
 # ── GET single employee ───────────────────────────────────────────────────────
 @employee_bp.route("/<int:emp_id>", methods=["GET"])
-@admin_required
 def get_employee(emp_id):
     emp = Employee.query.get_or_404(emp_id)
     return jsonify(emp.to_dict())
@@ -121,7 +120,6 @@ def get_employee(emp_id):
 
 # ── PUT update employee ───────────────────────────────────────────────────────
 @employee_bp.route("/<int:emp_id>", methods=["PUT"])
-@admin_required
 def update_employee(emp_id):
     emp  = Employee.query.get_or_404(emp_id)
     data = request.get_json()
@@ -138,7 +136,7 @@ def update_employee(emp_id):
 
 # ── DELETE employee (soft delete) ─────────────────────────────────────────────
 @employee_bp.route("/<int:emp_id>", methods=["DELETE"])
-@admin_required
+
 def delete_employee(emp_id):
     """
     SOFT DELETE: We don't remove the row from DB.
@@ -151,10 +149,8 @@ def delete_employee(emp_id):
     db.session.commit()
     return jsonify({"message": f"Employee {emp.name} deactivated."})
 
-
 # ── POST parse resume (NLP) ───────────────────────────────────────────────────
 @employee_bp.route("/parse-resume", methods=["POST"])
-@admin_required
 def parse_resume():
     """
     MEMBER 3's endpoint.

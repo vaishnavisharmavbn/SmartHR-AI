@@ -113,7 +113,6 @@ def create_app():
         return render_template("dashboard.html")
 
     @app.route("/employees")
-    @admin_required
     def employees_page():
         return render_template("employees.html")
 
@@ -130,12 +129,11 @@ def create_app():
         return render_template("feedback.html")
 
     @app.route("/payroll")
-    @admin_required
+
     def payroll_page():
         return render_template("payroll.html")
 
     @app.route("/reports")
-    @admin_required
     def reports_page():
         return render_template("reports.html")
 
